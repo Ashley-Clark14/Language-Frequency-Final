@@ -1,17 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Fri Jul 12 11:11:12 2019
-
-@author: ashleygregory
-"""
-
-# Language-Frequency-Final
-language frequency repo
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 import os
+import math
 
 os.chdir("/Users/ashleygregory/Desktop/IMT 511/Problem Set 4")
 
@@ -38,26 +29,46 @@ def LanguageFrequency(fileName):
     
     
     for word in most_frequent.keys():
-        most_frequent[word] = most_frequent[word]/len(sorted_counts)
+        most_frequent[word] = most_frequent[word]/len(List)
 
     return most_frequent
 
-print("These are the most frequent words",LanguageFrequency("eaton-boy-scouts_EN.txt"))
-print("These are the most frequent words",LanguageFrequency("cherbonnel-mi-tio_SP.txt"))
-print("These are the most frequent words",LanguageFrequency("schloemp-tolle-koffer_DE.txt"))
-print("These are the most frequent words",LanguageFrequency("unknown-lang.txt"))
+#print("These are the most frequent words",LanguageFrequency("eaton-boy-scouts_EN.txt"))
+#print("These are the most frequent words",LanguageFrequency("cherbonnel-mi-tio_SP.txt"))
+#print("These are the most frequent words",LanguageFrequency("schloemp-tolle-koffer_DE.txt"))
+#print("These are the most frequent words",LanguageFrequency("unknown-lang.txt"))
 
 Spanish = (LanguageFrequency('cherbonnel-mi-tio_SP.txt'))
 English = (LanguageFrequency('eaton-boy-scouts_EN.txt'))
 German = (LanguageFrequency("schloemp-tolle-koffer_DE.txt"))
 Unknown = (LanguageFrequency("unknown-lang.txt"))
 
-for w in Spanish.keys():
 
-    Spanish.get(w, 'none')
-    print(w, abs (Spanish[w] - Unknown[w]))
+Sb = 0  # total difference for SP
+Gb = 0
+Eb = 0      
+for u in Unknown.keys():
+    U = Unknown.get(u, 0)
+    S = Spanish.get(u, 0)
+    Sdiff = abs(S-U)
+    Sb = Sb + Sdiff
+    
+    G = German.get(u, 0)
+    Gdiff = abs(G-U)
+    Gb = Gdiff + Gb
 
-def Compare (language):
-    for w in language.values():
-        print(w)
+    E = English.get(u, 0)
+    Ediff = abs (E-U)
+    Eb = Ediff + Eb
+    
+print("The difference in languages is", Sb, "in Spanish.")
+print("The difference in language is", Gb, "in German.")
+print("The difference in language is,", Eb, "in English")
 
+if Sb < Eb and Sb < Gb:
+        print("The document is in Spanish")
+elif Eb < Sb and Eb < Gb:
+        print("The document is in English")
+elif Gb < Sb and Gb < Eb:
+        print("The document is in German")
+    
